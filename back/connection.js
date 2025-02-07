@@ -1,14 +1,11 @@
-const { Sequelize } = require("sequelize");
+const Sequilize = require("sequelize");
+const config = require("./config");
 
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: "postgres",
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false, // Required for Supabase
-    },
-  },
-  logging: false, // Disable logging for cleaner output
+const { host, username, password, dbname, dialect, port } = config.koneksi;
+const connection = new Sequilize(dbname, username, password, {
+  host: host,
+  port: port,
+  dialect: dialect,
 });
 
-module.exports = sequelize;
+module.exports = connection;
